@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-
 import java.util.List;
 
 
@@ -77,5 +76,6 @@ public class Libro implements Serializable {
 	public void setClientes(List<Cliente> clientes) {
 		this.clientes = clientes;
 	}
+
 
 }

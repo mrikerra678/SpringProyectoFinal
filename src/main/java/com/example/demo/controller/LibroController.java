@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Libro;
+import com.example.demo.repository.EscritorRepository;
 import com.example.demo.service.LibroService;
 
 @RestController
@@ -23,6 +24,8 @@ import com.example.demo.service.LibroService;
 public class LibroController {
 	@Autowired
 	LibroService libroService;
+	@Autowired
+	EscritorRepository escritorRepository;
 
     @GetMapping("")
     public List<Libro> list() {
@@ -38,9 +41,14 @@ public class LibroController {
             return new ResponseEntity<Libro>(HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/")
-    public void add(@RequestBody Libro libro) {
-    	libroService.saveLibro(libro);
+    @PostMapping("/{id}/escritor")
+    public void add(@PathVariable(value = "id")Integer id,  @RequestBody Libro libro) {
+    	return escritorRepository.findById(id).map(escritor->{
+    		libro.setEscritor(escritor);
+    		libroService.saveLibro(libro);
+    	});
+    	System.out.print("PUTA MIERDA");
+
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Libro libro, @PathVariable Integer id) {
