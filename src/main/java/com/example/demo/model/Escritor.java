@@ -1,7 +1,10 @@
 package com.example.demo.model;
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -25,6 +28,7 @@ public class Escritor implements Serializable {
 	//bi-directional many-to-one association to Libro
 	@OneToMany(mappedBy="escritor", cascade={CascadeType.ALL})
 	private List<Libro> libros;
+	//private Set<Libro> libros2 = new HashSet<>();
 
 	public Escritor() {
 	}
